@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+@using (Html.BeginForm("Index", "Musteri", FormMethod.Get))
+{
+    <p>
+        <b>Aranacak kelimeyi girin : </b> @Html.TextBox("p")
+        <input type="submit" value="Ara" />
+    </p>
+}
+<table class="table table-bordered">
+    <tr>
+        <th>MÜŞTERİ ID</th>
+        <th>MÜŞTERİ ADI</th>
+        <th>MÜŞTERİ SOYADI</th>
+        <th>SİL</th>
+        <th>GÜNCELLE</th>
+    </tr>
+    <tbody>
+        @foreach (var mstr in Model)
+        {
+            <tr>
+                <th>@mstr.MusteriId</th>
+                <td>@mstr.MusteriAd</td>
+                <td>@mstr.MusteriSoyad</td>
+                <td>@Html.ActionLink("Sil", "Sil", new { id = mstr.MusteriId }, new { @class = "btn btn-warning", onclick = "return confirm('Müşteriyi Silmek İstediğinize Eminmisiniz?')" })</td>
+                <td><a href="/Musteri/MusteriGetir/@mstr.MusteriId" class="btn btn-success">Güncelle</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a href="/Musteri/YeniMusteri/" class="btn btn-primary">Yeni Müşteri Ekle</a>
